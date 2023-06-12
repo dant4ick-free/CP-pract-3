@@ -23,18 +23,20 @@ document.getElementById('upload-button').addEventListener('click', async functio
       document.getElementById('result').textContent = JSON.stringify(result, null, 2);
 
       if (result.uploaded_image_data) {
-        const uploadedImageDataContainer = document.getElementById('uploaded-image-data');
-        uploadedImageDataContainer.textContent = 'Uploaded Image Data: ' + result.uploaded_image_data;
+        const imageContainer = document.getElementById('image-container');
+        imageContainer.innerHTML = ''; // Clear previous image if any
+
+        const uploadedImage = new Image();
+        uploadedImage.src = 'data:image/png;base64,' + result.uploaded_image_data;
+        uploadedImage.style.maxWidth = '500px'; // Adjust the max width as needed
+        imageContainer.appendChild(uploadedImage);
       }
 
       if (result.image_changed_data) {
-        const changedImageDataContainer = document.getElementById('changed-image-data');
-        changedImageDataContainer.textContent = 'Changed Image Data: ' + result.image_changed_data;
-      }
-
-      if (result.uploaded_image_data || result.image_changed_data) {
-        const imageDataContainer = document.getElementById('image-data-container');
-        imageDataContainer.style.display = 'block';
+        const changedImage = new Image();
+        changedImage.src = 'data:image/png;base64,' + result.image_changed_data;
+        changedImage.style.maxWidth = '500px'; // Adjust the max width as needed
+        imageContainer.appendChild(changedImage);
       }
     };
 
