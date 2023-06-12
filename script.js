@@ -22,21 +22,23 @@ document.getElementById('upload-button').addEventListener('click', async functio
       const result = await response.json();
       document.getElementById('result').textContent = JSON.stringify(result, null, 2);
 
-      if (result.uploaded_image_data) {
+      if (result.uploaded_image_data || result.image_changed_data) {
         const imageContainer = document.getElementById('image-container');
-        imageContainer.innerHTML = ''; // Clear previous image if any
+        imageContainer.innerHTML = ''; // Clear previous images if any
 
-        const uploadedImage = new Image();
-        uploadedImage.src = 'data:image/png;base64,' + result.uploaded_image_data;
-        uploadedImage.style.maxWidth = '500px'; // Adjust the max width as needed
-        imageContainer.appendChild(uploadedImage);
-      }
+        if (result.uploaded_image_data) {
+          const uploadedImage = new Image();
+          uploadedImage.src = 'data:image/png;base64,' + result.uploaded_image_data;
+          uploadedImage.style.maxWidth = '500px'; // Adjust the max width as needed
+          imageContainer.appendChild(uploadedImage);
+        }
 
-      if (result.image_changed_data) {
-        const changedImage = new Image();
-        changedImage.src = 'data:image/png;base64,' + result.image_changed_data;
-        changedImage.style.maxWidth = '500px'; // Adjust the max width as needed
-        imageContainer.appendChild(changedImage);
+        if (result.image_changed_data) {
+          const changedImage = new Image();
+          changedImage.src = 'data:image/png;base64,' + result.image_changed_data;
+          changedImage.style.maxWidth = '500px'; // Adjust the max width as needed
+          imageContainer.appendChild(changedImage);
+        }
       }
     };
 
