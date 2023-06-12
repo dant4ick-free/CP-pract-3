@@ -24,9 +24,11 @@ document.getElementById('upload-button').addEventListener('click', async functio
 
       if (result.uploaded_image_data) {
         const imageContainer = document.getElementById('image-container');
-        const imageElement = document.createElement('img');
+        imageContainer.innerHTML = ''; // Clear previous image if any
+
+        const imageElement = new Image();
         imageElement.src = 'data:image/png;base64,' + result.uploaded_image_data;
-        imageContainer.innerHTML = '';
+        imageElement.style.maxWidth = '500px'; // Adjust the max width as needed
         imageContainer.appendChild(imageElement);
       }
     };
